@@ -28,6 +28,7 @@ class CallingTaskType extends AbstractType
             ])
             ->add('callingTimes', EntityType::class,[
                 'class'=>CallingTime::class,
+                'required'=>false,
                 'choice_label'=>function($timeObject){
                     return "{$timeObject->getCallingDay()} ( {$timeObject->getStartCallingTime()->format('H:i')}-{$timeObject->getEndCallingTime()->format('H:i')} )";
                 },
