@@ -1,0 +1,42 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}CallingTask index{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+
+    <h1>CallingTask index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calling_task in calling_tasks %}
+            <tr>
+                <td>{{ calling_task.id }}</td>
+                <td>{{ calling_task.name }}</td>
+                <td>
+                    <a href="{{ path('calling_task_show', {'id': calling_task.id}) }}">show</a>
+                    <a href="{{ path('calling_task_edit', {'id': calling_task.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('calling_task_new') }}">Create new</a>
+        </div>
+    </div>
+    </div>
+{% endblock %}

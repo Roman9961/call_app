@@ -1,0 +1,39 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}CallingTime index{% endblock %}
+
+{% block content %}
+    <h1>CallingTime index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CallingDay</th>
+                <th>StartCallingTime</th>
+                <th>EndCallingTime</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calling_time in calling_times %}
+            <tr>
+                <td>{{ calling_time.id }}</td>
+                <td>{{ calling_time.callingDay }}</td>
+                <td>{{ calling_time.startCallingTime ? calling_time.startCallingTime|date('H:i:s') : '' }}</td>
+                <td>{{ calling_time.endCallingTime ? calling_time.endCallingTime|date('H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('calling_time_show', {'id': calling_time.id}) }}">show</a>
+                    <a href="{{ path('calling_time_edit', {'id': calling_time.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('calling_time_new') }}">Create new</a>
+{% endblock %}

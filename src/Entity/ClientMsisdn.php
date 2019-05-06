@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\ClientMsisdnRepository")
+ */
+class ClientMsisdn
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $msisdn;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getMsisdn(): ?string
+    {
+        return $this->msisdn;
+    }
+
+    public function setMsisdn(string $msisdn): self
+    {
+        $this->msisdn = $msisdn;
+
+        return $this;
+    }
+}

@@ -1,0 +1,35 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}CallingList index{% endblock %}
+
+{% block content %}
+    <h1>CallingList index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calling_list in calling_lists %}
+            <tr>
+                <td>{{ calling_list.id }}</td>
+                <td>{{ calling_list.name }}</td>
+                <td>
+                    <a href="{{ path('calling_list_show', {'id': calling_list.id}) }}">show</a>
+                    <a href="{{ path('calling_list_edit', {'id': calling_list.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('calling_list_new') }}">Create new</a>
+{% endblock %}

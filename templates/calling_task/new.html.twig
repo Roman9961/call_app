@@ -1,0 +1,11 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}New CallingTask{% endblock %}
+
+{% block content %}
+    <h1>Create new CallingTask</h1>
+
+    {{ include('calling_task/_form.html.twig') }}
+
+    <a href="{{ path('calling_task_index') }}">back to list</a>
+{% endblock %}

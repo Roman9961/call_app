@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+{#{% if form.vars.value.image %}#}
+{#    <img src="{{ vich_uploader_asset(user.image, 'imageFile') | default_image | imagine_filter('preview')}}" alt="{{ user.image.imageName }}" />#}
+{#    <img src="{{ asset('uploads/'~form.vars.value.image.filename )| default_image | imagine_filter('preview')}}" alt="" >#}
+{#{% endif %}#}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

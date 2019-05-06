@@ -1,0 +1,26 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}CallingList{% endblock %}
+
+{% block content %}
+    <h1>CallingList</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ calling_list.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ calling_list.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('calling_list_index') }}">back to list</a>
+
+    <a href="{{ path('calling_list_edit', {'id': calling_list.id}) }}">edit</a>
+
+    {{ include('calling_list/_delete_form.html.twig') }}
+{% endblock %}

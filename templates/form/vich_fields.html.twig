@@ -1,0 +1,22 @@
+{% extends '@VichUploader/Form/fields.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block file_widget %}
+
+    <div class="integer_widget">
+            <label for="file-input">
+                <img src="{{ asset(form.parent.vars.download_uri) | default_image | imagine_filter('preview')}}"/>
+            </label>
+            <input type="file" name="user[image][imageFile][file]" style="display: none" id="file-input">
+
+    </div>
+{% endblock %}
+
+{% block vich_file_widget %}
+    {{form_widget(form.file)}}
+{% endblock %}
+
+{% block vich_image_widget %}
+    {{ parent() }}
+{% endblock %}
