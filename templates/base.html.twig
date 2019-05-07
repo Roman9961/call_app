@@ -276,14 +276,19 @@
             {{ encore_entry_script_tags('app') }}
             <script>
                 $(document).ready(function () {
-                    var ct = JSON.parse($('#calling_task_callingTimes').html());
+                    try {
+                        var ct = JSON.parse($('#calling_task_callingTimes').html());
 
-                    _.mapObject(ct, function(val, key) {
-                        val.forEach(function (time) {
-                            $('.d-flex').find(`.week:contains(${key})`).next().find(`.badge[data-time=${time}]`).addClass('badge-warning')
-                        })
+                        _.mapObject(ct, function(val, key) {
+                            val.forEach(function (time) {
+                                $('.d-flex').find(`.week:contains(${key})`).next().find(`.badge[data-time=${time}]`).addClass('badge-warning')
+                            })
 
-                    })
+                        })  
+                    }catch (e) {
+                        
+                    }
+                    
 
 
                     var times = [];
