@@ -275,6 +275,28 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             <script>
+                $(document).ready(function () {
+                    var times = [];
+                    $('.badge').on('click', function () {
+                        var index = _.findLastIndex(times, {
+                            time: $(this).html()
+                        });
+                        if(index !== -1){
+                            times.splice(index, 1);
+                        }else{
+                            times.push({day:$(this).closest('ul').prev().html(), time:$(this).html()})
+                        }
+
+var grupped = _.groupBy(times, function(num){ return num.day; });
+                       var result = _.mapObject(grupped, function(val, key) {
+                            return val.map(function (value) {
+                                return value.time
+                            })
+                        });
+                        $('#calling_task_callingTimes').html(JSON.stringify(result))
+                        $(this).toggleClass('badge-warning')
+                    })
+                })
                 $( "select[multiple='multiple']" ).selectpicker(
                     {
                         liveSearch:true,

@@ -3,6 +3,7 @@ import 'bootstrap'
 import '../sass/admin.sass'
 import 'startbootstrap-sb-admin-2/js/sb-admin-2.min'
 import 'bootstrap-select'
+const _ = require('underscore')
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -17,5 +18,6 @@ import 'bootstrap-select'
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
 global.$ = global.jQuery = $;
+global._ = _;
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
