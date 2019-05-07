@@ -154,14 +154,15 @@ class UserController extends AbstractController
             if($password) {
                 $user->setPassword($this->encoder->encodePassword($user, $password));
             }
-//            if($user->getImage() && !$user->getImage()->getImageFile()){
-//                $user->setImage(null);
-//            }
-//            dd($user);
+
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user_index', [
+            $route = 'user_index';
+            if($request->query->has('profile')){
+                $route = 'admin';
+            }
+            return $this->redirectToRoute($route, [
                 'id' => $user->getId(),
             ]);
         }

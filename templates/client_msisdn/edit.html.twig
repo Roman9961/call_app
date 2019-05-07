@@ -1,0 +1,13 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}Edit ClientMsisdn{% endblock %}
+
+{% block content %}
+    <h1>Edit ClientMsisdn</h1>
+
+    {{ include('client_msisdn/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-info" href="{{ path('client_msisdn_index') }}">back to list</a>
+
+    {{ include('client_msisdn/_delete_form.html.twig') }}
+{% endblock %}

@@ -20,8 +20,9 @@ class CallingTaskController extends AbstractController
      */
     public function index(CallingTaskRepository $callingTaskRepository): Response
     {
+        $repo = $this->getDoctrine()->getRepository('App\Entity\User');
         return $this->render('calling_task/index.html.twig', [
-            'calling_tasks' => $callingTaskRepository->findBy(['user'=>$this->getUser()]),
+            'calling_tasks' => $callingTaskRepository->findBy(['user'=>$repo->findByAccountCode($this->getUser()->getAccountCode())]),
         ]);
     }
 
@@ -30,8 +31,10 @@ class CallingTaskController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $repo = $this->getDoctrine()->getRepository('App\Entity\User');
+
         $callingTask = new CallingTask();
-        $form = $this->createForm(CallingTaskType::class, $callingTask, ['user' => $this->getUser()]);
+        $form = $this->createForm(CallingTaskType::class, $callingTask, ['user' => $repo->findByAccountCode($this->getUser()->getAccountCode())]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,7 +67,9 @@ class CallingTaskController extends AbstractController
      */
     public function edit(Request $request, CallingTask $callingTask): Response
     {
-        $form = $this->createForm(CallingTaskType::class, $callingTask);
+        $repo = $this->getDoctrine()->getRepository('App\Entity\User');
+
+        $form = $this->createForm(CallingTaskType::class, $callingTask, ['user' => $repo->findByAccountCode($this->getUser()->getAccountCode())]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

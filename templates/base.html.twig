@@ -71,8 +71,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item {% if currentRoute matches '{^(calling_task).+$}' %}active{% endif %}" href="{{ path('calling_task_index') }}">Tasks</a>
-                        <a class="collapse-item {% if currentRoute matches '{^(calling_time).+$}' %}active{% endif %}"  href="{{ path('calling_time_index') }}">Time</a>
                         <a class="collapse-item {% if currentRoute matches '{^(calling_list).+$}' %}active{% endif %}"  href="{{ path('calling_list_index') }}">List</a>
+                        <a class="collapse-item {% if currentRoute matches '{^(client_msisdn).+$}' %}active{% endif %}"  href="{{ path('client_msisdn_index') }}">Msisdn</a>
                     </div>
                 </div>
             </li>
@@ -279,7 +279,8 @@
                     {
                         liveSearch:true,
                         actionsBox:true,
-                        selectedTextFormat: 'count'
+                        selectedTextFormat: 'count',
+                        style: 'btn-default'
                     });
 
             </script>

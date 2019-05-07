@@ -49,6 +49,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $childrens;
     }
 
+    public function findByAccountCode($value){
+       return $this->createQueryBuilder('u')
+            ->where('u.id = :accountCode')
+            ->setParameter('accountCode', $value)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?User

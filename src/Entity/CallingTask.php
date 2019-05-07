@@ -36,14 +36,10 @@ class CallingTask
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\CallingTime")
+     * @ORM\Column(type="string", length=255)
      */
     private $callingTimes;
 
-    public function __construct()
-    {
-        $this->callingTimes = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -87,28 +83,18 @@ class CallingTask
     }
 
     /**
-     * @return Collection|CallingTime[]
+     * @return mixed
      */
-    public function getCallingTimes(): Collection
+    public function getCallingTimes()
     {
         return $this->callingTimes;
     }
 
-    public function addCallingTime(CallingTime $callingTime): self
+    /**
+     * @param mixed $callingTimes
+     */
+    public function setCallingTimes($callingTimes): void
     {
-        if (!$this->callingTimes->contains($callingTime)) {
-            $this->callingTimes[] = $callingTime;
-        }
-
-        return $this;
-    }
-
-    public function removeCallingTime(CallingTime $callingTime): self
-    {
-        if ($this->callingTimes->contains($callingTime)) {
-            $this->callingTimes->removeElement($callingTime);
-        }
-
-        return $this;
+        $this->callingTimes = $callingTimes;
     }
 }

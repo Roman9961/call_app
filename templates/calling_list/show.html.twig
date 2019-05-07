@@ -18,9 +18,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('calling_list_index') }}">back to list</a>
+    <a class="btn btn-info" href="{{ path('calling_list_index') }}">back to list</a>
 
-    <a href="{{ path('calling_list_edit', {'id': calling_list.id}) }}">edit</a>
+    <a class="btn btn-success" href="{{ path('calling_list_edit', {'id': calling_list.id}) }}">edit</a>
 
     {{ include('calling_list/_delete_form.html.twig') }}
 {% endblock %}

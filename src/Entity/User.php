@@ -42,6 +42,11 @@ class User implements UserInterface
     private $callingLists;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ClientMsisdn", mappedBy="user")
+     */
+    private $clientMsisdns;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $roles;
@@ -101,6 +106,7 @@ class User implements UserInterface
     {
         $this->callingTasks = new ArrayCollection();
         $this->callingLists = new ArrayCollection();
+        $this->clientMsisdns = new ArrayCollection();
         $this->children = new ArrayCollection();
         $this->updatedAt = new \DateTime();
     }
@@ -243,6 +249,34 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($callingList->getUser() === $this) {
                 $callingList->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getClientMsisdns(): Collection
+    {
+        return $this->clientMsisdns;
+    }
+
+    public function addClientMsisdn(CallingTask $clientMsisdn): self
+    {
+        if (!$this->clientMsisdns->contains($clientMsisdn)) {
+            $this->clientMsisdns[] = $clientMsisdn;
+            $clientMsisdn->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClientMsisdn(CallingTask $clientMsisdn): self
+    {
+        if ($this->clientMsisdns->contains($clientMsisdn)) {
+            $this->clientMsisdns->removeElement($clientMsisdn);
+            // set the owning side to null (unless already changed)
+            if ($clientMsisdn->getUser() === $this) {
+                $clientMsisdn->setUser(null);
             }
         }
 

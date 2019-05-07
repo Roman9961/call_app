@@ -1,0 +1,11 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}New ClientMsisdn{% endblock %}
+
+{% block content %}
+    <h1>Create new ClientMsisdn</h1>
+
+    {{ include('client_msisdn/_form.html.twig') }}
+
+    <a class="btn btn-info" href="{{ path('client_msisdn_index') }}">back to list</a>
+{% endblock %}

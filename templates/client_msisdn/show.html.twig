@@ -1,0 +1,26 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}ClientMsisdn{% endblock %}
+
+{% block content %}
+    <h1>ClientMsisdn</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ client_msisdn.id }}</td>
+            </tr>
+            <tr>
+                <th>Msisdn</th>
+                <td>{{ client_msisdn.msisdn }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-info" href="{{ path('client_msisdn_index') }}">back to list</a>
+
+    <a class="btn btn-success" href="{{ path('client_msisdn_edit', {'id': client_msisdn.id}) }}">edit</a>
+
+    {{ include('client_msisdn/_delete_form.html.twig') }}
+{% endblock %}

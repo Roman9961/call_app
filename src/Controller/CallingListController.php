@@ -20,8 +20,9 @@ class CallingListController extends AbstractController
      */
     public function index(CallingListRepository $callingListRepository): Response
     {
+        $repo = $this->getDoctrine()->getRepository('App\Entity\User');
         return $this->render('calling_list/index.html.twig', [
-            'calling_lists' => $callingListRepository->findBy(['user'=>$this->getUser()]),
+            'calling_lists' => $callingListRepository->findBy(['user'=>$repo->findByAccountCode($this->getUser()->getAccountCode())]),
         ]);
     }
 
@@ -30,8 +31,9 @@ class CallingListController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $repo = $this->getDoctrine()->getRepository('App\Entity\User');
         $callingList = new CallingList();
-        $form = $this->createForm(CallingListType::class, $callingList);
+        $form = $this->createForm(CallingListType::class, $callingList, ['user' => $repo->findByAccountCode($this->getUser()->getAccountCode())]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,7 +66,8 @@ class CallingListController extends AbstractController
      */
     public function edit(Request $request, CallingList $callingList): Response
     {
-        $form = $this->createForm(CallingListType::class, $callingList);
+        $repo = $this->getDoctrine()->getRepository('App\Entity\User');
+        $form = $this->createForm(CallingListType::class, $callingList, ['user' => $repo->findByAccountCode($this->getUser()->getAccountCode())]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

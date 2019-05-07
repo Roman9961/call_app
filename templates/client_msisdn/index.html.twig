@@ -1,0 +1,34 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}ClientMsisdn index{% endblock %}
+
+{% block content %}
+    <h1>ClientMsisdn index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Msisdn</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client_msisdn in client_msisdns %}
+            <tr>
+                <td>{{ client_msisdn.id }}</td>
+                <td>{{ client_msisdn.msisdn }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{{ path('client_msisdn_edit', {'id': client_msisdn.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="{{ path('client_msisdn_new') }}">Create new</a>
+{% endblock %}

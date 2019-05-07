@@ -1,4 +1,19 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{#    {{ form_widget(form) }}#}
+    {{ form_row(form.name) }}
+    {% if  form.callingList.vars.choices | length == 0%}
+        <div class="form-group">
+                <div><a href="{{ path('calling_list_new') }}">Добавьте список прозвона</a></div>
+                <div style="display: none;">
+                    {{ form_widget(form.callingList) }}
+                </div>
+        </div>
+    {% else %}
+        {{ form_row(form.callingList) }}
+    {% endif %}
+
+    {{ form_row(form.callingTimes) }}
+
+
+    <button class="btn btn-dark">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

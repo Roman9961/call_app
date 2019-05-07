@@ -21,6 +21,13 @@ class ClientMsisdn
      */
     private $msisdn;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="clientMsisdns")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private $user;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +41,18 @@ class ClientMsisdn
     public function setMsisdn(string $msisdn): self
     {
         $this->msisdn = $msisdn;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

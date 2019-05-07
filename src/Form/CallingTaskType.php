@@ -8,6 +8,7 @@ use App\Entity\CallingTime;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,20 +27,7 @@ class CallingTaskType extends AbstractType
                         ->setParameter('user', $options['user']);
                 },
             ])
-            ->add('callingTimes', EntityType::class,[
-                'class'=>CallingTime::class,
-                'required'=>false,
-                'choice_label'=>function($timeObject){
-                    return "{$timeObject->getCallingDay()} ( {$timeObject->getStartCallingTime()->format('H:i')}-{$timeObject->getEndCallingTime()->format('H:i')} )";
-                },
-                'multiple' => true,
-                'expanded' => false,
-                'query_builder' => function (EntityRepository $er) use ($options) {
-                    return $er->createQueryBuilder('ct')
-                        ->andWhere('ct.user=:user')
-                        ->setParameter('user', $options['user']);
-                },
-            ])
+            ->add('callingTimes', TextareaType::class)
         ;
     }
 

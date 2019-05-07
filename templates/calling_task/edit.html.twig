@@ -2,12 +2,12 @@
 
 {% block title %}Edit CallingTask{% endblock %}
 
-{% block content
+{% block content %}
     <h1>Edit CallingTask</h1>
 
     {{ include('calling_task/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('calling_task_index') }}">back to list</a>
+    <a class="btn btn-info" href="{{ path('calling_task_index') }}">back to list</a>
 
     {{ include('calling_task/_delete_form.html.twig') }}
 {% endblock %}

@@ -14,7 +14,8 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>actions</th>
+                <th>List phones count</th>
+                <th>action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +23,9 @@
             <tr>
                 <td>{{ calling_task.id }}</td>
                 <td>{{ calling_task.name }}</td>
+                <td>{{ calling_task.callingList.clientMsisdns |length }}</td>
                 <td>
-                    <a href="{{ path('calling_task_show', {'id': calling_task.id}) }}">show</a>
-                    <a href="{{ path('calling_task_edit', {'id': calling_task.id}) }}">edit</a>
+                    <a class="btn btn-warning" href="{{ path('calling_task_edit', {'id': calling_task.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,7 +36,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('calling_task_new') }}">Create new</a>
+    <a class="btn btn-success" href="{{ path('calling_task_new') }}">Create new</a>
         </div>
     </div>
     </div>
