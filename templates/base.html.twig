@@ -276,22 +276,24 @@
             {{ encore_entry_script_tags('app') }}
             <script>
                 $(document).ready(function () {
+                    var times = [];
                     try {
                         var ct = JSON.parse($('#calling_task_callingTimes').html());
 
                         _.mapObject(ct, function(val, key) {
                             val.forEach(function (time) {
+                                times.push({day:key, time:time})
                                 $('.d-flex').find(`.week:contains(${key})`).next().find(`.badge[data-time=${time}]`).addClass('badge-warning')
                             })
 
                         })  
                     }catch (e) {
-                        
+
                     }
                     
 
 
-                    var times = [];
+
                     $('.badge').on('click', function () {
                         var index = _.findLastIndex(times, {
                             day:$(this).closest('ul').prev().html(),
