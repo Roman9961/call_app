@@ -279,18 +279,21 @@
                     var times = [];
                     $('.badge').on('click', function () {
                         var index = _.findLastIndex(times, {
-                            time: $(this).html()
+                            day:$(this).closest('ul').prev().html(),
+                            time: parseInt($(this).html().substr(0,2))
                         });
                         if(index !== -1){
                             times.splice(index, 1);
                         }else{
-                            times.push({day:$(this).closest('ul').prev().html(), time:$(this).html()})
+                            times.push({day:$(this).closest('ul').prev().html(), time: parseInt($(this).html().substr(0,2))})
                         }
 
-var grupped = _.groupBy(times, function(num){ return num.day; });
-                       var result = _.mapObject(grupped, function(val, key) {
+                        var grupped = _.groupBy(times, function(num){ return num.day; });
+                        var result = _.mapObject(grupped, function(val, key) {
                             return val.map(function (value) {
                                 return value.time
+                            }).sort(function (a,b) {
+                                return a - b;
                             })
                         });
                         $('#calling_task_callingTimes').html(JSON.stringify(result))
