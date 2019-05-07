@@ -21,7 +21,7 @@
                 {% for i in 0..23 %}
                     <li style="display: flex;
     flex-direction: column;
-    align-items: center;"><div class="badge badge-info">{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}:00</div>
+    align-items: center;"><div class="badge badge-info" data-time="{{ i }}">{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}:00</div>
                     </li>
                 {% endfor %}
             </ul>
