@@ -118,7 +118,7 @@ class UserController extends AbstractController
             'administrator' =>'ROLE_ADMIN',
             'user' =>'ROLE_USER'
         ];
-dd(substr('38380982187143', -10));
+
         if (!in_array('ROLE_ROOT', $this->getUser()->getRoles())){
             unset($roles['administrator']);
         }elseif (!in_array('ROLE_ADMIN', $this->getUser()->getRoles())
