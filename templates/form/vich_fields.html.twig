@@ -3,20 +3,26 @@
 {% form_theme form _self %}
 
 {% block file_widget %}
-
-    <div class="integer_widget">
-            <label for="file-input">
+    {% if form.parent.vars.download_uri is defined %}
+        <div class="integer_widget">
+            <label for="{{ form.parent.vars.id }}_file">
                 <img src="{{ asset(form.parent.vars.download_uri) | default_image | imagine_filter('preview')}}"/>
+                {{form_widget(form)}}
             </label>
-            <input type="file" name="user[image][imageFile][file]" style="display: none" id="file-input">
+        </div>
+    {% else %}
+        <label for="{{ form.parent.vars.id }}_file" style="cursor: pointer;">
+            <img src="{{ asset('export-csv.png') | imagine_filter('thumb')}}"/>
+            {{form_widget(form)}}
+        </label>
+    {% endif %}
 
-    </div>
 {% endblock %}
 
 {% block vich_file_widget %}
     {{form_widget(form.file)}}
 {% endblock %}
 
-{% block vich_image_widget %}
-    {{ parent() }}
-{% endblock %}
+{#{% block vich_image_widget %}#}
+{#    {{ parent() }}#}
+{#{% endblock %}#}

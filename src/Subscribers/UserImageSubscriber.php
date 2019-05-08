@@ -5,12 +5,8 @@ namespace App\Subscribers;
 use App\Entity\User;
 use App\Utils\FileManager;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserImageSubscriber implements EventSubscriber
 {

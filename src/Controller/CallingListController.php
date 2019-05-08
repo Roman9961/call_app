@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\CallingList;
+use App\Entity\ClientMsisdn;
 use App\Form\CallingListType;
 use App\Repository\CallingListRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,10 +39,19 @@ class CallingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $callingList->setUser($this->getUser()->getParent()?$this->getUser()->getParent():$this->getUser());
+
+            $msisdn = new ClientMsisdn();
+            $msisdn->setUser($this->getUser()->getParent()?$this->getUser()->getParent():$this->getUser());
+            $msisdn->setMsisdn('322223');
+            $callingList->addClientMsisdn($msisdn);
+
+            $entityManager->persist($msisdn);
             $entityManager->persist($callingList);
             $entityManager->flush();
+
 
             return $this->redirectToRoute('calling_list_index');
         }

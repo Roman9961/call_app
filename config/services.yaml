@@ -36,6 +36,3 @@ services:
     App\Subscribers\UserImageSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber' }
-
-    App\FileNamer\AvatarNamer:
-        public: true

@@ -7,8 +7,11 @@ use App\Entity\ClientMsisdn;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CallingListType extends AbstractType
 {
@@ -24,9 +27,24 @@ class CallingListType extends AbstractType
                 'query_builder' => function (EntityRepository $er) use ($options) {
                     return $er->createQueryBuilder('ms')
                         ->andWhere('ms.user=:user')
-                        ->setParameter('user', $options['user']);
+                        ->setParameter('user', $options['user'])
+                        ->setMaxResults(10)
+                        ;
                 },
             ])
+        ->add("file", FileType::class, [
+            'mapped'=>false,
+            'constraints'=>[
+                new File([
+                    'maxSize' => '2M',
+                    'mimeTypes' => [
+                        'text/csv',
+                    ],
+                    'mimeTypesMessage' => 'Please upload a CSV file',
+                ])
+            ],
+            'label'=>false
+        ])
         ;
     }
 
