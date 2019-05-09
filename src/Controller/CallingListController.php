@@ -6,6 +6,7 @@ use App\Entity\CallingList;
 use App\Entity\ClientMsisdn;
 use App\Form\CallingListType;
 use App\Repository\CallingListRepository;
+use App\Utils\CsvParser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,7 @@ class CallingListController extends AbstractController
     /**
      * @Route("/new", name="calling_list_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CsvParser $csvParser): Response
     {
         $repo = $this->getDoctrine()->getRepository('App\Entity\User');
         $callingList = new CallingList();
@@ -41,18 +42,24 @@ class CallingListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
-            $callingList->setUser($this->getUser()->getParent()?$this->getUser()->getParent():$this->getUser());
+            $user = $this->getUser()->getParent()?$this->getUser()->getParent():$this->getUser();
+            $callingList->setUser($user);
 
-            $msisdn = new ClientMsisdn();
-            $msisdn->setUser($this->getUser()->getParent()?$this->getUser()->getParent():$this->getUser());
-            $msisdn->setMsisdn('322223');
-            $callingList->addClientMsisdn($msisdn);
-
-            $entityManager->persist($msisdn);
+            $file = $form->get('file');
+            $start = time();
+            if($file) {
+                $msisdns = $csvParser->saveMsisdnFromCsv($file->getData(), $user);
+                foreach ($msisdns as $msisdn) {
+                    $callingList->addClientMsisdn($msisdn);
+                }
+            }
             $entityManager->persist($callingList);
+            $end = time();
+            dd($end-$start);
+
             $entityManager->flush();
-
-
+            $end = time();
+            dump($end-$start);
             return $this->redirectToRoute('calling_list_index');
         }
 

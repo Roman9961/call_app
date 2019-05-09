@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +27,26 @@ class ClientMsisdn
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="ClientMsisdn", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    private $parent;
+
+    /**
+     * @var User[]
+     *
+     * @ORM\OneToMany(targetEntity="ClientMsisdn", mappedBy="parent")
+     */
+    private $children;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -56,4 +77,37 @@ class ClientMsisdn
 
         return $this;
     }
+
+    /**
+     * @return ClientMsisdn
+     */
+    public function getParent(): ClientMsisdn
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param ClientMsisdn $parent
+     */
+    public function setParent(ClientMsisdn $parent): void
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return ClientMsisdn[]
+     */
+    public function getChildren(): array
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param ClientMsisdn[] $children
+     */
+    public function setChildren(array $children): void
+    {
+        $this->children = $children;
+    }
+
 }

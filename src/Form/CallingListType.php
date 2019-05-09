@@ -21,6 +21,7 @@ class CallingListType extends AbstractType
             ->add('name')
             ->add('clientMsisdns', EntityType::class,[
                 'class' => ClientMsisdn::class,
+                'required' => false,
                 'choice_label' => 'msisdn',
                 'multiple' => true,
                 'expanded' => false,
@@ -34,11 +35,12 @@ class CallingListType extends AbstractType
             ])
         ->add("file", FileType::class, [
             'mapped'=>false,
+            'required' => false,
             'constraints'=>[
                 new File([
                     'maxSize' => '2M',
                     'mimeTypes' => [
-                        'text/csv',
+                        'text/plain',
                     ],
                     'mimeTypesMessage' => 'Please upload a CSV file',
                 ])
