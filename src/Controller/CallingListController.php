@@ -18,17 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CallingListController extends AbstractController
 {
-
-    /**
-     * @var CsvParser
-     */
-    private $csvParser;
-
-    public function __construct(CsvParser $csvParser)
-    {
-        $this->csvParser = $csvParser;
-    }
-
     /**
      * @Route("/", name="calling_list_index", methods={"GET"})
      */
@@ -43,7 +32,7 @@ class CallingListController extends AbstractController
     /**
      * @Route("/new", name="calling_list_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CsvParser $csvParser): Response
     {
         $repo = $this->getDoctrine()->getRepository('App\Entity\User');
         $callingList = new CallingList();
@@ -59,7 +48,7 @@ class CallingListController extends AbstractController
             $file = $form->get('file');
             $start = time();
             if($file) {
-                $msisdns = $this->csvParser->saveMsisdnFromCsv($file->getData(), $user);
+                $msisdns = $csvParser->saveMsisdnFromCsv($file->getData(), $user);
                 foreach ($msisdns as $msisdn) {
                     $callingList->addClientMsisdn($msisdn);
                 }
