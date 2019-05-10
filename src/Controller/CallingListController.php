@@ -46,7 +46,6 @@ class CallingListController extends AbstractController
             $callingList->setUser($user);
 
             $file = $form->get('file');
-            $start = time();
             if($file) {
                 $msisdns = $csvParser->saveMsisdnFromCsv($file->getData(), $user);
                 foreach ($msisdns as $msisdn) {
@@ -54,12 +53,8 @@ class CallingListController extends AbstractController
                 }
             }
             $entityManager->persist($callingList);
-            $end = time();
-            dd($end-$start);
-
             $entityManager->flush();
-            $end = time();
-            dump($end-$start);
+
             return $this->redirectToRoute('calling_list_index');
         }
 
