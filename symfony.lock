@@ -157,6 +157,31 @@
             "config/routes/liip_imagine.yaml"
         ]
     },
+    "mmucklo/grid-bundle": {
+        "version": "4.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.2",
+            "ref": "df7c5b826e9ceca9b28e9dc0b37c31f066a165f9"
+        },
+        "files": [
+            "config/routes/dtc_grid.yaml"
+        ]
+    },
+    "mmucklo/queue-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "2544c220a21d7bbb8fea7b321c2f3bcc32ecceb8"
+        },
+        "files": [
+            "config/packages/dtc_queue.yaml",
+            "config/routes/dtc_queue.yaml"
+        ]
+    },
     "nikic/php-parser": {
         "version": "v4.2.1"
     },

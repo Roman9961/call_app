@@ -17,4 +17,6 @@ return [
     Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
+    Dtc\GridBundle\DtcGridBundle::class => ['all' => true],
+    Dtc\QueueBundle\DtcQueueBundle::class => ['all' => true],
 ];

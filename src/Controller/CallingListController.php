@@ -6,6 +6,7 @@ use App\Entity\CallingList;
 use App\Entity\ClientMsisdn;
 use App\Form\CallingListType;
 use App\Repository\CallingListRepository;
+use App\Utils\AsyncSaveToDb;
 use App\Utils\CsvParser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -32,7 +33,7 @@ class CallingListController extends AbstractController
     /**
      * @Route("/new", name="calling_list_new", methods={"GET","POST"})
      */
-    public function new(Request $request, CsvParser $csvParser): Response
+    public function new(Request $request, CsvParser $csvParser, AsyncSaveToDb $asyncSaveToDb): Response
     {
         $repo = $this->getDoctrine()->getRepository('App\Entity\User');
         $callingList = new CallingList();
@@ -46,14 +47,13 @@ class CallingListController extends AbstractController
             $callingList->setUser($user);
 
             $file = $form->get('file');
-            if($file) {
-                $msisdns = $csvParser->saveMsisdnFromCsv($file->getData(), $user);
-                foreach ($msisdns as $msisdn) {
-                    $callingList->addClientMsisdn($msisdn);
-                }
-            }
+
             $entityManager->persist($callingList);
             $entityManager->flush();
+
+            if($file->getData()) {
+                $csvParser->saveWorkToQueue($file->getData(),$user->getId(), $callingList->getId());
+            }
 
             return $this->redirectToRoute('calling_list_index');
         }

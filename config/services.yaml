@@ -36,3 +36,9 @@ services:
     App\Subscribers\UserImageSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber' }
+
+    App\Utils\AsyncSaveToDb:
+        # public: false is possible if you completely use DependencyInjection for access to the service
+        public: true
+        tags:
+            - { name: "dtc_queue.worker" }

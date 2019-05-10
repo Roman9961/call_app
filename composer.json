@@ -9,6 +9,7 @@
         "knpuniversity/oauth2-client-bundle": "^1.28",
         "league/oauth2-google": "^3.0",
         "liip/imagine-bundle": "^2.1",
+        "mmucklo/queue-bundle": "^4.10",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
